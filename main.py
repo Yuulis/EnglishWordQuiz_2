@@ -1,5 +1,6 @@
 from keep_alive import keep_alive
 import discord
+from discord_slash import SlashCommand, SlashContext
 import os
 import requests
 import json
@@ -15,7 +16,10 @@ client = discord.Client(intents=intents)
 
 credentials = get_secrets.load_user_secrets_from_local()
 gc = gspread.authorize(credentials)
-workbook = gc.open_by_key(os.getenv('SHEET_KEY_LOG'))
+
+# log用スプレッドシートの取得
+book_log = gc.open_by_key(os.getenv('SHEET_KEY_LOG'))
+sheet_log = book_log.sheet1
 
 sad_words = ["sad", "depressed", "unhappy", "angry", "miserable"]
 starter_encouragements = [
@@ -36,12 +40,18 @@ async def on_ready():
 
 
 @client.event
+# ユーザ発言時
 async def on_message(message):
+  # bot自身の時はスルー
   if message.author == client.user:
     return
 
+  # 発言が"$inspire"の時
   if message.content.startswith('$inspire'):
     quote = get_quote()
+
+    # ユーザidをlogに記録
+    sheet_log.insert_row([str(datetime.datetime.now()), str(message.author.id)], 2)
     await message.channel.send(quote)
 
 
