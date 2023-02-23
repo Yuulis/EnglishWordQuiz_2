@@ -9,6 +9,10 @@ gc = gspread.authorize(credentials)
 book_log = gc.open_by_key(os.getenv('SHEET_KEY_LOG'))
 sheet_log = book_log.sheet1
 
+# userList用のスプレッドシートの取得
+book_userList = gc.open_by_key(os.getenv('SHEET_KEY_USERLIST'))
+sheet_userList = book_userList.sheet1
+
 
 # logに記録する
 def add_log(contents, line):

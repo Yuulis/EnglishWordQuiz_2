@@ -1,8 +1,8 @@
-from keep_alive import keep_alive
 import discord
 from discord.ext import commands
 import os
 import asyncio
+from keep_alive import keep_alive
 
 INTENTS = discord.Intents.all()
 INTENTS.message_content = True
@@ -30,6 +30,7 @@ except Exception as e:
 @bot.event
 async def on_ready():
   print('We have logged in as {0.user}'.format(bot))
+  await bot.tree.sync()
 
 
 bot.run(os.getenv('TOKEN'))
