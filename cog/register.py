@@ -7,17 +7,17 @@ import json
 from google_api.spreadsheet_api import spreadsheet
 
 
-class Inspire(commands.Cog):
+class Register(commands.Cog):
 
   def __init__(self, bot):
     self.bot = bot
 
-  @app_commands.command(name='inspire', description='偉人の格言をランダムで返す。')
+  @app_commands.command(name='register', description='ユーザ登録を行います。')
   async def inspire(self, interaction: discord.Interaction):
     quote = get_quote()
 
     # logに記録
-    contents = [str(datetime.datetime.now()), str(interaction.user.id), 'inspire']
+    contents = [str(datetime.datetime.now()), str(interaction.user.id), 'register']
     spreadsheet.add_log(contents, 2)
 
     await interaction.response.send_message(quote, ephemeral=True)
@@ -31,5 +31,5 @@ def get_quote():
 
 
 async def setup(bot):
-  await bot.add_cog(Inspire(bot))
-  print('[cog] Inspire was loaded!')
+  await bot.add_cog(Register(bot))
+  print('[cog] Register was loaded!')
