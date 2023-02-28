@@ -15,5 +15,15 @@ sheet_userList = book_userList.sheet1
 
 
 # logに記録する
-def add_log(contents, line):
-  sheet_log.insert_row(contents, line)
+def add_log(contents):
+  sheet_log.insert_row(contents, 2)
+
+
+# userListの取得
+def get_userList():
+  return sheet_userList.col_values(1)
+
+
+# userListに追加
+def add_userList(id):
+  return sheet_userList.insert_row([str(id)], 2)

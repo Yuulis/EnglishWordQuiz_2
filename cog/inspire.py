@@ -17,8 +17,11 @@ class Inspire(commands.Cog):
     quote = get_quote()
 
     # logに記録
-    contents = [str(datetime.datetime.now()), str(interaction.user.id), 'inspire']
-    spreadsheet.add_log(contents, 2)
+    contents = [
+      str(datetime.datetime.now()),
+      str(interaction.user.id), 'inspire'
+    ]
+    spreadsheet.add_log(contents)
 
     await interaction.response.send_message(quote, ephemeral=True)
 

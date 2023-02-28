@@ -27,8 +27,8 @@ class Bot(commands.Bot):
       print('Running background task...')
 
     async def on_ready(self):
-      print('We have logged in as {0.user}'.format(self))
       await self.tree.sync()
+      print('We have logged in as {0.user}'.format(self))
 
 
 # bot起動
